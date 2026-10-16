@@ -3,6 +3,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -17,3 +20,5 @@ jobs:
         run: cd services/title-normalizer && pip install -r requirements.txt
       - name: Run title-normalization tests
         run: cd services/title-normalizer && pytest
+      - name:
+        run: 
