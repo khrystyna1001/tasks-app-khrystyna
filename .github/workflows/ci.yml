@@ -1,0 +1,19 @@
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check repository code
+        uses: actions/checkout@v6
+      - name: Install tasks-api dependencies
+        run: cd services/tasks-api && pip install -r requirements.txt
+      - name: Run tasks-api tests
+        run: cd services/tasks-api && pytest
+      - name: Install title-normalization dependencies
+        run: cd services/title-normalization && pip install -r requirements.txt
+      - name: Run title-normalization tests
+        run: cd services/title-normalization && pytest
