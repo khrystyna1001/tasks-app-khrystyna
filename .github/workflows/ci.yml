@@ -17,6 +17,6 @@ jobs:
       - name: Check repository code
         uses: actions/checkout@v6
       - name: Install dependencies
-        run: cd services/${{ matrix.services }} && pip install -r requirements.txt
+        run: pip install -r services/${{ matrix.services }}requirements.txt
       - name: Run tests
-        run: cd services/${{ matrix.services }} && pytest
+        run: pytest -r services/${{ matrix.services }}
