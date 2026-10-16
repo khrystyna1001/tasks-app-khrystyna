@@ -18,5 +18,11 @@ jobs:
         uses: actions/checkout@v6
       - name: Install dependencies
         run: pip install -r services/${{ matrix.services }}/requirements.txt
-      - name: Run tests
-        run: pytest services/${{ matrix.services }}
+      - name: Run and save tests to txt
+        shell: bash
+        run: pytest services/${{ matrix.services }} | tee ${{ matrix.services }}-test-report.txt
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ${{ matrix.services }}-test-report
+          path: ${{ matrix.services }}-test-report.txt
