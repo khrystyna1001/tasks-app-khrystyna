@@ -14,6 +14,6 @@ jobs:
       - name: Run tasks-api tests
         run: cd services/tasks-api && pytest
       - name: Install title-normalization dependencies
-        run: cd services/title-normalization && pip install -r requirements.txt
+        run: cd services/title-normalizer && pip install -r requirements.txt
       - name: Run title-normalization tests
-        run: cd services/title-normalization && pytest
+        run: cd services/title-normalizer && pytest
