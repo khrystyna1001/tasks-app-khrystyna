@@ -7,18 +7,16 @@ permissions:
   contents: read
 
 jobs:
-  run-tests:
-    runs-on: ubuntu-latest
+  services-matrix:
+    strategy:
+      matrix:
+        os: ubuntu-latest
+        services: [tasks-api, title-normalizer]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Check repository code
         uses: actions/checkout@v6
-      - name: Install tasks-api dependencies
-        run: cd services/tasks-api && pip install -r requirements.txt
-      - name: Run tasks-api tests
-        run: cd services/tasks-api && pytest
-      - name: Install title-normalization dependencies
-        run: cd services/title-normalizer && pip install -r requirements.txt
-      - name: Run title-normalization tests
-        run: cd services/title-normalizer && pytest
-      - name:
-        run: 
+      - name: Install dependencies
+        run: cd services/${{ matrix.services }} && pip install -r requirements.txt
+      - name: Run tests
+        run: cd services/${{ matrix.services }} && pytest
