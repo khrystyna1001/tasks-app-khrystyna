@@ -10,7 +10,7 @@ jobs:
   services-matrix:
     strategy:
       matrix:
-        os: ubuntu-latest
+        os: [ubuntu-latest]
         services: [tasks-api, title-normalizer]
     runs-on: ${{ matrix.os }}
     steps:
