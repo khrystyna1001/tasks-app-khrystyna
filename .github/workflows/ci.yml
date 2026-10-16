@@ -19,4 +19,4 @@ jobs:
       - name: Install dependencies
         run: pip install -r services/${{ matrix.services }}requirements.txt
       - name: Run tests
-        run: pytest -r services/${{ matrix.services }}
+        run: pytest services/${{ matrix.services }}
