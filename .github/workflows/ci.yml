@@ -33,6 +33,7 @@ jobs:
 
 
   deploy:
+    needs: run_tests
     runs-on: ubunutu-latest
     environment:
       name: github.pages
