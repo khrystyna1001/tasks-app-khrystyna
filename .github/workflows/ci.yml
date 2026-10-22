@@ -30,3 +30,27 @@ jobs:
         with:
           name: ${{matrix.service}}-bandit-report
           path: ${{matrix.service}}-bandit-report.html
+
+
+  deploy:
+    runs-on: ubunutu-latest
+    environment:
+      name: github.pages
+      url: ${{ steps.deployment.output.page.url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: tasks-api-bandit-report
+          path: _site
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+          retention-days: 2
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+
+    
