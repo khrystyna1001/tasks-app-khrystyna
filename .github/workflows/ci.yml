@@ -1,28 +1,35 @@
-on: 
+name: Test and Scan
+
+on:
   push:
     branches:
       - main
 
-permissions:
-  contents: read
-
 jobs:
-  services-matrix:
+  run_tests:
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        services: [tasks-api, title-normalizer]
-    runs-on: ${{ matrix.os }}
+        service: [tasks-api, title-normalizer] # ${{matrix.service}}
+        python-version: ["3.10", "3.11", "3.12"] # ${{matrix.python-version}}
     steps:
-      - name: Check repository code
-        uses: actions/checkout@v6
-      - name: Install dependencies
-        run: pip install -r services/${{ matrix.services }}/requirements.txt
-      - name: Run and save tests to txt
-        shell: bash
-        run: pytest services/${{ matrix.services }} | tee ${{ matrix.services }}-test-report.txt
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{matrix.python-version}}
+      - run: pip install -r services/${{matrix.service}}/requirements.txt
+      - run: pytest -rA services/${{matrix.service}} > ${{matrix.service}}-${{matrix.python-version}}-test-report.txt
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ${{ matrix.services }}-test-report
-          path: ${{ matrix.services }}-test-report.txt
+          name: ${{matrix.service}}-${{matrix.python-version}} test report
+          path: ${{matrix.service}}-${{matrix.python-version}}-test-report.txt
+      - run: pip install bandit
+      - run: bandit -r services/${{matrix.service}} -f html -o ${{matrix.service}}-${{matrix.python-version}}-bandit-report.html
+        continue-on-error: true
+      - name: Upload Bandit Report as Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{matrix.service}}-${{matrix.python-version}}-bandit-report
+          path: ${{matrix.service}}-${{matrix.python-version}}-bandit-report.html
