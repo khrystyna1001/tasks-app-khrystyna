@@ -224,4 +224,15 @@ bash /tmp/install-terraform.sh
 
 Read the script before you run it.
 
+If you missed this meeting: run the three lines above, then copy these as whole files: `terraform/.gitignore` and `terraform/main.tf`. Build the two images as in meetings 4 and 5 (`title-normalizer:local` and `tasks-api:local`), run the firewall command from the Firewall commands section once per Codespace, then run `terraform init` in `terraform/`. The containers are gone with the Codespace. None of this is homework.
+
 Docs: [Terraform: resource blocks](https://developer.hashicorp.com/terraform/language/block/resource), [for_each](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each), [Local values](https://developer.hashicorp.com/terraform/language/values/locals), [Output values](https://developer.hashicorp.com/terraform/language/values/outputs), [References to values](https://developer.hashicorp.com/terraform/language/expressions/references), [Strings and templates](https://developer.hashicorp.com/terraform/language/expressions/strings), [depends_on](https://developer.hashicorp.com/terraform/language/meta-arguments/depends_on), [terraform init](https://developer.hashicorp.com/terraform/cli/commands/init), [terraform plan](https://developer.hashicorp.com/terraform/cli/commands/plan), [terraform apply](https://developer.hashicorp.com/terraform/cli/commands/apply), [terraform destroy](https://developer.hashicorp.com/terraform/cli/commands/destroy), [terraform state list](https://developer.hashicorp.com/terraform/cli/commands/state/list), [terraform output](https://developer.hashicorp.com/terraform/cli/commands/output), [terraform validate](https://developer.hashicorp.com/terraform/cli/commands/validate), [Dependency lock file](https://developer.hashicorp.com/terraform/language/files/dependency-lock), [Docker provider: docker_container](https://registry.terraform.io/providers/kreuzwerker/docker/4.7.0/docs/resources/container), [Docker provider: docker_network](https://registry.terraform.io/providers/kreuzwerker/docker/4.7.0/docs/resources/network)
+
+Tasks:
+
+1. Run the install script and start one container from a file.
+2. Describe the app environment in `terraform/main.tf`.
+3. Make `dev` and `staging` from one definition with `for_each`.
+4. Push a branch, open a pull request and merge it.
+5. Fix a change made by hand.
+6. Predict which edit replaces a container.
