@@ -1,3 +1,5 @@
+# USE TERRAFORM APPLY X (X IS TASK 10)
+
 terraform {
   required_providers {
     docker = {
@@ -12,7 +14,7 @@ provider "docker" {}
 locals {
   environments = {
     dev     = 8100
-    staging = 8200
+    staging = 8101
   }
 }
 
@@ -44,10 +46,7 @@ resource "docker_container" "api" {
   }
 }
 
-output "dev_url" {
-  value = "http://localhost:${local.environments.dev}"
+output "urls" {
+  value = { for env, port in local.environments : env => "http://localhost:${port}" }
 }
 
-output "staging_url" {
-  value = "http://localhost:${local.environments.staging}"
-}
