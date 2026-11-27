@@ -3,7 +3,7 @@ groups:
     rules:
       - alert: TasksErrors
         expr: >-
-          sum(rate(http_requests_total{endpoint=~"/tasks.*",status=~"4..|5.."}[1m]))
+          sum(rate(http_requests_total{endpoint="/tasks",status=~"[4-9].."}[1m]))
           > 0
         for: 30s
         annotations:
