@@ -86,6 +86,23 @@ jobs:
           ignore-unfixed: true
           exit-code: "1"
 
+  smoke_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Start stack
+        run: docker compose up -d --build --wait
+      - name: Post a task and check it was normalized
+        run: |
+          response=$(curl -fsS -X POST http://localhost:5050/tasks \
+            -H 'Content-Type: application/json' \
+            -d '{"title": "  buy   milk "}')
+          echo "$response"
+          echo "$response" | python3 -c 'import json, sys; sys.exit(0 if json.load(sys.stdin).get("normalized") is True else 1)'
+      - name: Shut down stack
+        if: always()
+        run: docker compose down -v
+
   publish_images:
     needs: scan_images
     if: github.event_name == 'push'
