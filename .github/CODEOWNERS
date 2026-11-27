@@ -1,0 +1,4 @@
+# Owner for every service folder and for the workflows, CODEOWNERS, and templates.
+/services/tasks-api/ @khrystyna1001
+/services/title-normalizer/ @khrystyna1001
+/.github/ @khrystyna1001
