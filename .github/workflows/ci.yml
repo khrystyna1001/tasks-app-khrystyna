@@ -138,7 +138,7 @@ jobs:
 
   deploy:
     needs: [run_tests, generate_api_docs]
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       pages: write
