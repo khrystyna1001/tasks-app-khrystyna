@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: title-normalizer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: title-normalizer
+  template:
+    metadata:
+      labels:
+        app: title-normalizer
+    spec:
+      containers:
+      - name: web
+        image: title-normalizer:local

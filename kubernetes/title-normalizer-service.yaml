@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: title-normalizer-service
+spec:
+  selector:
+    app: title-normalizer
+  ports:
+    - port: 5001
+      targetPort: 5001
